@@ -1,53 +1,64 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <title>9-B</title>
-    <link rel="stylesheet" href="/app.css" />
-    <link rel="manifest" href="/mf.json" />
+	<head>
+		<title>9-B</title>
+		<link rel="stylesheet" href="/app.css" />
 
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <meta name="description" content="Домашка" />
-    <meta name="theme-color" content="#209CEE" />
+		<link rel="manifest" href="/mf.json" />
 
-    <link rel="icon" href="/assets/icon.png" />
-    <link rel="apple-touch-icon" href="/assets/icon.png" />
-  </head>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
 
-  <body>
-    <img src="/assets/loading.svg" class="loading" alt="Loading..." />
-    <nav>
-      <a href="#home" class="brand">
-        <img class="logo" src="/assets/icon.svg" alt="logo" />
-        <span>Домашка</span>
-      </a>
-      <input id="menu" type="checkbox" class="show" />
-      <label for="menu" class="burger pseudo button">&#9776;</label>
-      <div class="menu">
-        <a href="#group1">1 Группа</a>
-        <a href="#group2">2 Группа</a>
-        <a href="#about">О сайте</a>
-      </div>
-    </nav>
-    <div class="navfix"></div>
-    <main>
-      <article id="group1">
-        <h1>1 Группа</h1>
-        <p>HW goes here...</p>
-      </article>
-      <article id="group2">
-        <h1>2 Группа</h1>
-        <p>HW goes here...</p>
-      </article>
-      <article id="about">
-        <h1>О сайте</h1>
-        <p>Just another page...</p>
-      </article>
-      <article id="home">
-        <h1>Main Page</h1>
-        <p>Hello World!</p>
-      </article>
-    </main>
-    <script defer src="/sw-register.js"></script>
-    <script src="/app.js"></script>
-  </body>
+		<meta name="description" content="Домашка" />
+
+		<meta name="theme-color" content="#209CEE" />
+
+		<meta charset="utf-8" />
+
+		<link rel="icon" href="/assets/icon.png" />
+
+		<link rel="apple-touch-icon" href="/assets/icon.png" />
+
+	</head>
+	<body>
+		<img src="/assets/loading.svg" class="loading" alt="Loading..." />
+
+		<nav>
+			<a href="#home" class="brand">
+				<img class="logo" src="/assets/icon.svg" alt="logo" />
+
+				<span>Домашка</span>
+			</a>
+			<input id="menu" type="checkbox" class="show" />
+
+			<label for="menu" class="burger pseudo button">☰</label>
+			<div class="menu">
+				<a href="#group1">1 Группа</a>
+				<a href="#group2">2 Группа</a>
+				<a href="#about">О сайте</a>
+			</div>
+		</nav>
+		<div class="navfix"></div>
+		<main>
+			<article id="group1">
+				<h1>1 Группа</h1>
+			</article>
+			<article id="group2">
+				<h1>2 Группа</h1>
+			</article>
+			<article id="about">
+				<h1>О сайте</h1>
+				<p>Just another page...</p>
+			</article>
+			<article id="home">
+				<h1>Main Page</h1>
+				<p>Hello World!</p>
+			</article>
+		</main>
+		<template class="hw">
+			<h2>TITLE</h2>
+			<p>CONTENT</p>
+		</template>
+		<!--script defer="defer" src="/sw-register.js"></script-->
+		<script src="/app.js"></script>
+	</body>
 </html>
