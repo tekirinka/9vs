@@ -1,0 +1,2 @@
+#!/bin/bash
+yarn prettier --write index.html app.css app.js netlify.toml

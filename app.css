@@ -68,6 +68,7 @@ main {
 main > article {
   opacity: 1;
   transition: none;
+  position: absolute;
   animation: 1s fadein;
 }
 
@@ -79,7 +80,4 @@ main > article:target ~ #home {
 
 .navfix {
   height: 2em;
-}
-
-.list {
 }

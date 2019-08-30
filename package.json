@@ -1,0 +1,14 @@
+{
+  "devDependencies": {
+    "prettier": "1.18.2",
+    "prettier-plugin-toml": "^0.3.1"
+  },
+  "name": "spa-pwa",
+  "version": "1.0.0",
+  "description": "SPA PWA",
+  "main": "index.html",
+  "repository": "https://github.com/tekirinka/9v",
+  "author": "asd <asd@gmail.com>",
+  "license": "GPL-3.0",
+  "private": true
+}
