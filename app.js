@@ -8,11 +8,17 @@
     routes: {
       hw: {
         rendered: async (init, hw, group) => {
-          if (hw in global.app.data) return;
-          if (!init) document.body.classList.add("loading");
-          global.app.data[hw] = await fetch(`${global.app.data.url}/${group}`, {
-            headers: { "x-apikey": global.app.data.apikey }
-          }).then(x => x.json());
+          if (!init) {
+            document.body.classList.add("loading");
+          }
+          if (!(hw in global.app.data)) {
+            global.app.data[hw] = await fetch(
+              `${global.app.data.url}/${group}`,
+              {
+                headers: { "x-apikey": global.app.data.apikey }
+              }
+            ).then(x => x.json());
+          }
           let element = document.querySelector(`${location.hash} .list`);
           element.innerHTML = global.app.data[hw]
             .map(item =>
@@ -21,7 +27,9 @@
                 .replace("CONTENT", item.content)
             )
             .join("");
-          if (!init) document.body.classList.remove("loading");
+          if (!init) {
+            document.body.classList.remove("loading");
+          }
         },
         hidden: (init, hw) => {
           document.querySelector(`${hw} .list`).innerHTML = "";
