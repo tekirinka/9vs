@@ -1,75 +1,82 @@
-@import url(https://unpkg.com/picnic@6.5.0/picnic.min.css);
+@import url(https://unpkg.com/picnic@6.5.0/picnic.min.css); @keyframes fadein {
+    0% {
+        opacity: 0;
+    }
 
-@keyframes fadein {
-  0% {
-    opacity: 0;
-  }
+    75% {
+        opacity: 0;
+    }
 
-  75% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
+    100% {
+        opacity: 1;
+    }
 }
 
 @keyframes fadeout {
-  0% {
-    opacity: 1;
-  }
+    0% {
+        opacity: 1;
+    }
 
-  25% {
-    opacity: 1;
-  }
+    25% {
+        opacity: 1;
+    }
 
-  100% {
-    opacity: 0;
-  }
+    100% {
+        opacity: 0;
+    }
 }
 
 html {
-  font-size: calc(1em + 1vw);
+    font-size: calc(1em + 1vw);
 }
 
 body {
-  font-size: 1rem;
+    font-size: 1rem;
 }
 
-body > .loading {
-  z-index: 1000;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 50%;
-  height: 50%;
-  opacity: 0;
-  animation: 1s fadeout;
-  transition: opacity 1s;
+body > .spinner, body.loading > :not(.spinner) {
+    opacity: 0;
+    animation: 1s fadeout;
 }
 
-body > :not(.loading) {
-  animation: 1s fadein;
+body > .spinner {
+    z-index: 1000;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 50%;
+    opacity: 0;
+    animation: 1s fadeout;
+    transition: opacity 1s;
+}
+
+body > :not(.spinner), body.loading > .spinner {
+    opacity: 1;
+    animation: 1s fadein;
 }
 
 main {
-  margin: 4em 1em 0 1em;
+    margin: 4em 1em 0 1em;
 }
 
 main > article {
-  opacity: 1;
-  position: absolute;
-  transition: none;
-  animation: 1s fadein;
+    opacity: 1;
+    position: absolute;
+    transition: none;
+    animation: 1s fadein;
 }
 
-main > article:not(:target):not(#home),
-main > article:target ~ #home {
-  opacity: 0;
-  animation: 1s fadeout;
+main > article:not(:target):not(#home), main > article:target ~ #home {
+    opacity: 0;
+    animation: 1s fadeout;
 }
 
 .navfix {
-  height: 2em;
+    height: 2em;
+}
+
+.list {
+    list-style: none;
 }
