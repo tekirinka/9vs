@@ -61,12 +61,12 @@ body.loading > .spinner {
 }
 
 main {
-  margin: 4em 1em 0 1em;
+  margin-top: 4em;
+  padding: 0 1em 0 1em;
 }
 
 main > article {
   opacity: 1;
-  position: absolute;
   transition: none;
   animation: 1s fadein;
 }
@@ -82,5 +82,4 @@ main > article:target ~ #home {
 }
 
 .list {
-  list-style-type: none;
 }
