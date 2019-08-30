@@ -78,5 +78,5 @@ main > article:not(:target):not(#home), main > article:target ~ #home {
 }
 
 .list {
-    list-style: none;
+    list-style-type: none;
 }
