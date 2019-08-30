@@ -23,17 +23,17 @@
             .join("");
           if (!init) document.body.classList.remove("loading");
         },
-        hidden: init => {
-          document.querySelector(`${location.hash} .list`).innerHTML = "";
+        hidden: (init, hw) => {
+          document.querySelector(`${hw} .list`).innerHTML = "";
         }
       },
       group1: {
         rendered: init => global.app.routes.hw.rendered(init, "hw1", "group1"),
-        hidden: init => global.app.routes.hw.hidden(init)
+        hidden: init => global.app.routes.hw.hidden(init, "#group1")
       },
       group2: {
         rendered: init => global.app.routes.hw.rendered(init, "hw2", "group2"),
-        hidden: init => global.app.routes.hw.hidden(init)
+        hidden: init => global.app.routes.hw.hidden(init, "#group2")
       }
     },
     default: "home",
