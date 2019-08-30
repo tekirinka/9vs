@@ -22,19 +22,27 @@
             )
             .join("");
           if (!init) document.body.classList.remove("loading");
+        },
+        hidden: init => {
+          document.querySelector(`${location.hash} .list`).innerHTML = "";
         }
       },
       group1: {
-        rendered: init => global.app.routes.hw.rendered(init, "hw1", "group1")
+        rendered: init => global.app.routes.hw.rendered(init, "hw1", "group1"),
+        hidden: init => global.app.routes.hw.hidden(init)
       },
       group2: {
-        rendered: init => global.app.routes.hw.rendered(init, "hw2", "group2")
+        rendered: init => global.app.routes.hw.rendered(init, "hw2", "group2"),
+        hidden: init => global.app.routes.hw.hidden(init)
       }
     },
     default: "home",
     hashChange: init => {
+      if (app.route && app.route.hidden) {
+        app.route.hidden(init);
+      }
       app.route = app.routes[location.hash.slice(1)];
-      if (app.route) {
+      if (app.route && app.route.rendered) {
         app.route.rendered(init);
       }
     },

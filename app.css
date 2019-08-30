@@ -61,7 +61,6 @@ body.loading > .spinner {
 }
 
 main {
-  margin-top: 4em;
   padding: 0 1em 0 1em;
 }
 
@@ -79,5 +78,5 @@ main > article:target ~ #home {
 }
 
 .navfix {
-  height: 2em;
+  height: 4em;
 }
