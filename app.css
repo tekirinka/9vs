@@ -1,4 +1,5 @@
 @import url(https://unpkg.com/picnic@6.5.0/picnic.min.css);
+@import url(https://unpkg.com/@fortawesome/fontawesome-free@5/css/all.min.css);
 @keyframes fadein {
   0% {
     opacity: 0;
@@ -27,16 +28,28 @@
   }
 }
 
+@keyframes minify {
+  0% {
+    top: 50%;
+  }
+  50% {
+    top: 50%;
+  }
+  100% {
+    top: -50%;
+  }
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
 html {
   font-size: calc(1em + 1vw);
 }
 
 body {
   font-size: 1rem;
-}
-
-* {
-  scroll-behavior: smooth;
 }
 
 body > .spinner,
@@ -48,13 +61,13 @@ body.loading > :not(.spinner) {
 body > .spinner {
   z-index: 1000;
   position: absolute;
-  top: 50%;
+  top: -50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 50%;
   height: 50%;
   opacity: 0;
-  animation: 1s fadeout;
+  animation: 1s fadeout, 2s minify;
   transition: opacity 1s;
 }
 
@@ -64,15 +77,13 @@ body.loading > .spinner {
   animation: 1s fadein;
 }
 
-main {
-  padding: 0 1em 0 1em;
-}
-
 main > article {
   opacity: 1;
   transition: none;
   position: absolute;
   animation: 1s fadein;
+  width: 92%;
+  margin: auto 2%;
 }
 
 main > article:not(:target):not(#home),
@@ -85,6 +96,6 @@ main > article:target ~ #home {
   height: 4em;
 }
 
-.card {
-  margin: auto 2%;
+.pill {
+  max-width: 100%;
 }
