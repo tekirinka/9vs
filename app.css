@@ -35,6 +35,10 @@ body {
   font-size: 1rem;
 }
 
+* {
+  scroll-behavior: smooth;
+}
+
 body > .spinner,
 body.loading > :not(.spinner) {
   opacity: 0;
@@ -79,4 +83,8 @@ main > article:target ~ #home {
 
 .navfix {
   height: 4em;
+}
+
+.card {
+  margin: auto 2%;
 }
