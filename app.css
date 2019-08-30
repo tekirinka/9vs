@@ -28,18 +28,6 @@
   }
 }
 
-@keyframes minify {
-  0% {
-    top: 50%;
-  }
-  50% {
-    top: 50%;
-  }
-  100% {
-    top: -50%;
-  }
-}
-
 * {
   scroll-behavior: smooth;
 }
@@ -52,6 +40,17 @@ body {
   font-size: 1rem;
 }
 
+img {
+  max-width: 100%;
+}
+
+.shed {
+  width: 535px;
+  height: 518px;
+  background-image: url(/assets/shed.png);
+  zoom: 0.5;
+}
+
 body > .spinner,
 body.loading > :not(.spinner) {
   opacity: 0;
@@ -61,14 +60,13 @@ body.loading > :not(.spinner) {
 body > .spinner {
   z-index: 1000;
   position: absolute;
-  top: -50%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 50%;
   height: 50%;
-  opacity: 0;
-  animation: 1s fadeout, 2s minify;
   transition: opacity 1s;
+  pointer-events: none;
 }
 
 body > :not(.spinner),
@@ -88,8 +86,11 @@ main > article {
 
 main > article:not(:target):not(#home),
 main > article:target ~ #home {
+  height: 0;
+  overflow: hidden;
   opacity: 0;
   animation: 1s fadeout;
+  transition: height 1s;
 }
 
 .navfix {
@@ -97,5 +98,5 @@ main > article:target ~ #home {
 }
 
 .pill {
-  max-width: 100%;
+  width: 100vw;
 }

@@ -30,18 +30,13 @@
           if (!init) {
             document.body.classList.remove("loading");
           }
-        },
-        hidden: (init, hw) => {
-          document.querySelector(`${hw} .list`).innerHTML = "";
         }
       },
       group1: {
-        rendered: init => global.app.routes.hw.rendered(init, "hw1", "group1"),
-        hidden: init => global.app.routes.hw.hidden(init, "#group1")
+        rendered: init => global.app.routes.hw.rendered(init, "hw1", "group1")
       },
       group2: {
-        rendered: init => global.app.routes.hw.rendered(init, "hw2", "group2"),
-        hidden: init => global.app.routes.hw.hidden(init, "#group2")
+        rendered: init => global.app.routes.hw.rendered(init, "hw2", "group2")
       }
     },
     default: "home",
@@ -61,6 +56,13 @@
       } else {
         location.hash = app.default;
       }
+
+      window.addEventListener("beforeinstallprompt", e => {
+        const btn = document.querySelector(".install");
+        btn.hidden = false;
+        btn.onclick = _ => e.prompt();
+        return e.preventDefault();
+      });
     }
   };
 })(window);

@@ -4,7 +4,7 @@ let cacheFirst = [
   "/sw-register.js",
   "/app.js",
   "/mf.json",
-  ...["icon-192.png", "icon.png", "icon.svg", "loading.svg"].map(
+  ...["icon-192.png", "icon.png", "icon.svg", "loading.svg", "shed.png"].map(
     x => `/assets/${x}`
   ),
   "https://unpkg.com/picnic@6.5.0/picnic.min.css"
