@@ -1,10 +1,12 @@
-image: nginx:stable-alpine
-
 pipelines:
   default:
     - step:
         script:
-          - apk update
-          - apk upgrade
-          - sh deploy
-        deployment: production
+        - tar czvf archive.tgz src
+    - step:
+        script:
+        - pipe: atlassian/heroku-deploy:1.0.1
+          variables:
+              HEROKU_API_KEY: $apikey
+              HEROKU_APP_NAME: 'plex-mdim'
+              ZIP_FILE: 'archive.tgz'
