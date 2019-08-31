@@ -3,6 +3,8 @@ pipelines:
     - step:
         script:
         - tar czvf archive.tgz src
+        artifacts:
+        - archive.tgz
     - step:
         script:
         - pipe: atlassian/heroku-deploy:1.0.1
