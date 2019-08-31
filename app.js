@@ -57,12 +57,7 @@
         location.hash = app.default;
       }
 
-      window.addEventListener("beforeinstallprompt", e => {
-        const btn = document.querySelector(".install");
-        btn.hidden = false;
-        btn.onclick = _ => e.prompt();
-        return e.preventDefault();
-      });
+      window.addEventListener("beforeinstallprompt", e => e.prompt());
     }
   };
 })(window);

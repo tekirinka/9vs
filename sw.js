@@ -1,4 +1,4 @@
-let version = "main";
+let version = "ain";
 let cacheFirst = [
   "/",
   "/sw-register.js",
