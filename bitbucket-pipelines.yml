@@ -1,0 +1,8 @@
+image: nginx:stable-alpine
+
+pipelines:
+  default:
+    - step:
+        script:
+          - apk update
+          - apk upgrade
