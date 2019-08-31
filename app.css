@@ -45,10 +45,6 @@ img {
 }
 
 .shed {
-  width: 535px;
-  height: 518px;
-  background-image: url(/assets/shed.png);
-  zoom: 0.5;
 }
 
 body > .spinner,

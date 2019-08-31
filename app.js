@@ -57,7 +57,13 @@
         location.hash = app.default;
       }
 
-      window.addEventListener("beforeinstallprompt", e => e.prompt());
+      window.addEventListener("beforeinstallprompt", e => {
+        try {
+          e.prompt();
+        } catch (e) {
+          console.error(e);
+        }
+      });
     }
   };
 })(window);
