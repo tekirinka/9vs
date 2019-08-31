@@ -6,3 +6,4 @@ pipelines:
         script:
           - apk update
           - apk upgrade
+        deployment: production
