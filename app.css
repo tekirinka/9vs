@@ -54,8 +54,8 @@ body > .spinner {
 body > .spinner {
   z-index: 1000;
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 50vh;
+  left: 50vw;
   transform: translate(-50%, -50%);
   width: 50%;
   height: 50%;
