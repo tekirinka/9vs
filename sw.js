@@ -1,6 +1,6 @@
 let log = (color, bg, msg) =>
   console.log("%c%s%s", `background:#${color};color:white;`, `${bg} `, msg);
-let version = "update";
+let version = "delete";
 let cacheFirst = [
   "/",
   "/sw-register.js",
