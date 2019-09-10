@@ -101,3 +101,9 @@ main > article:target ~ #home {
 table {
   display: inline-block;
 }
+
+@media (max-width: 630px) {
+  .pill {
+    width: 630px;
+  }
+}
