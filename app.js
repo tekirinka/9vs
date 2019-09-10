@@ -44,6 +44,10 @@ app = {
         }
         ok(app.data.hw[db]);
       }).then(hw => _ => {
+        let dateNow = new Date(Date.now());
+        dateNow.setHours(0, 0, 0, 0);
+        hw = hw.filter(item => new Date(item.date) >= dateNow);
+        hw = hw.sort((a, b) => new Date(a.date) - new Date(b.date));
         const element = document.querySelector(`${page} .list`);
         element.innerHTML = "";
         for (item of hw) {
@@ -51,7 +55,13 @@ app = {
           const date = new Date(item.date);
           const dateText = `${date.getDate()} ${
             app.data.months[date.getMonth()]
-          } ${date.getFullYear()} года, ${app.data.weekdays[date.getDay()]}`;
+          } ${date.getFullYear()} года, ${
+            date.getDate() == dateNow.getDate()
+              ? "сегодня"
+              : date.getDate() == dateNow.getDate() + 1
+              ? "завтра"
+              : app.data.weekdays[date.getDay() - 1]
+          }`;
           template.querySelector(
             ".title"
           ).innerHTML = `${item.title} (${dateText})`;
