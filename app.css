@@ -106,3 +106,7 @@ main > article:target ~ #home {
 [colspan] {
   text-align: center;
 }
+
+table {
+  display: inline-block;
+}
