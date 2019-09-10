@@ -102,3 +102,7 @@ main > article:target ~ #home {
 .tomorrow::before {
   content: "Завтра:";
 }
+
+[colspan] {
+  text-align: center;
+}
