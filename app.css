@@ -46,8 +46,7 @@ img {
   max-width: 100%;
 }
 
-body > .spinner,
-body.loading > :not(.spinner) {
+body > .spinner {
   opacity: 0;
   animation: 1s fadeout;
 }
@@ -64,8 +63,7 @@ body > .spinner {
   pointer-events: none;
 }
 
-body > :not(.spinner),
-body.loading > .spinner {
+body > :not(.spinner) {
   opacity: 1;
   animation: 1s fadein;
 }
@@ -94,13 +92,6 @@ main > article:target ~ #home {
 
 .pill {
   width: 100vw;
-}
-
-.today::before {
-  content: "Сегодня:";
-}
-.tomorrow::before {
-  content: "Завтра:";
 }
 
 [colspan] {
