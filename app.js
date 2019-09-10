@@ -42,14 +42,14 @@ app = {
   fetch: _ => {
     app.data.groups.map(async group => {
       let { page, db } = group;
-      app.routes[db] = await new Promise(async (ok, err) => {
+      new Promise(async (ok, err) => {
         if (!app.data.hw[db]) {
           app.data.hw[db] = await fetch(`${app.data.url}/${db}`, {
             headers: { "x-apikey": app.data.apikey }
           }).then(x => x.json(), err);
         }
         ok(app.data.hw[db]);
-      }).then(hw => _ => {
+      }).then(hw => {
         let dateNow = new Date(Date.now());
         dateNow.setHours(0, 0, 0, 0);
         hw = hw.filter(item => new Date(item.date) >= dateNow);
@@ -75,9 +75,6 @@ app = {
           element.appendChild(template);
         }
       });
-      if (location.hash == group.page) {
-        app.routes[group.db]();
-      }
     });
   },
   routes: {}
