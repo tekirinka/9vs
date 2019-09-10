@@ -14,7 +14,6 @@ app = {
       location.hash = app.data.default;
     }
     app.fetch();
-    setInterval(app.fetch, 10000);
   },
   hashchange: _ => {
     let page = location.hash.substr(1);
