@@ -1,6 +1,13 @@
 app = {
   init: _ => {
     window.addEventListener("hashchange", app.hashchange);
+    document
+      .querySelectorAll("a")
+      .forEach(item =>
+        item.addEventListener("click", _ =>
+          setTimeout(_ => window.scrollTo(0, 0), 100)
+        )
+      );
     if (location.hash) {
       app.hashchange();
     } else {
@@ -10,7 +17,6 @@ app = {
     setInterval(app.fetch, 10000);
   },
   hashchange: _ => {
-    setTimeout(_ => window.scrollTo(0, 0), 100);
     let page = location.hash.substr(1);
     if (app.routes[page]) {
       app.routes[page]();
