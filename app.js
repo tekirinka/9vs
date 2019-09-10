@@ -1,72 +1,70 @@
-(global => {
-  global["app"] = {
-    err: err => {
-      console.error(err);
-    },
-    data: {
-      apikey: "5d4da79558a35b31adeba65f",
-      url: "https://howork-3bce.restdb.io/rest",
-      template: document.querySelector("template.hw").innerHTML
-    },
-    routes: {
-      hw: {
-        rendered: async (init, hw, group) => {
-          if (!init) {
-            document.body.classList.add("loading");
-          }
-          if (!(hw in global.app.data)) {
-            global.app.data[hw] = await fetch(
-              `${global.app.data.url}/${group}`,
-              { headers: { "x-apikey": global.app.data.apikey } }
-            ).then(x => x.json());
-          }
-          let element = document.querySelector(`${location.hash} .list`);
-          element.innerHTML = global.app.data[hw]
-            .map(item =>
-              global.app.data.template
-                .replace("TITLE", item.title)
-                .replace("CONTENT", item.content)
-            )
-            .join("");
-          if (!init) {
-            document.body.classList.remove("loading");
-          }
+app = {
+  init: _ => {
+    window.addEventListener("hashchange", app.hashchange);
+    if (location.hash) {
+      app.hashchange();
+    } else {
+      location.hash = app.data.default;
+    }
+    app.fetch(true);
+    setInterval(app.fetch, 10000);
+  },
+  hashchange: _ => {
+    setTimeout(_ => window.scrollTo(0, 0), 100);
+    let page = location.hash.substr(1);
+    if (app.routes[page]) {
+      app.routes[page]();
+    }
+  },
+  data: {
+    default: "#home",
+    apikey: "5d4da79558a35b31adeba65f",
+    url: "https://howork-3bce.restdb.io/rest",
+    template: document.querySelector("template.hw").content,
+    groups: [
+      { page: "#group1", db: "group1" },
+      { page: "#group2", db: "group2" }
+    ],
+    hw: [],
+    months: "января,февраля,марта,апреля,мая,июня,июля,августа,сентября,октября,ноября,декабря".split(
+      ","
+    ),
+    weekdays: "понедельник,вторник,среда,четверг,пятница,суббота,воскресенье".split(
+      ","
+    )
+  },
+  fetch: _ => {
+    app.data.groups.map(async group => {
+      let { page, db } = group;
+      app.routes[db] = await new Promise(async (ok, err) => {
+        if (!app.data.hw[db]) {
+          app.data.hw[db] = await fetch(`${app.data.url}/${db}`, {
+            headers: { "x-apikey": app.data.apikey }
+          }).then(x => x.json(), err);
         }
-      },
-      group1: {
-        rendered: init => global.app.routes.hw.rendered(init, "hw1", "group1")
-      },
-      group2: {
-        rendered: init => global.app.routes.hw.rendered(init, "hw2", "group2")
-      }
-    },
-    default: "home",
-    hashChange: init => {
-      if (app.route && app.route.hidden) {
-        app.route.hidden(init);
-      }
-      app.route = app.routes[location.hash.slice(1)];
-      if (app.route && app.route.rendered) {
-        app.route.rendered(init);
-      }
-    },
-    init: _ => {
-      global.addEventListener("hashchange", _ => app.hashChange());
-      if (window.location.hash) {
-        app.hashChange(true);
-      } else {
-        location.hash = app.default;
-      }
-      window.addEventListener("beforeinstallprompt", console.dir);
-      window.addEventListener("beforeinstallprompt", e => {
-        try {
-          e.prompt().catch(err);
-        } catch (e) {
-          err(e);
+        ok(app.data.hw[db]);
+      }).then(hw => _ => {
+        const element = document.querySelector(`${page} .list`);
+        element.innerHTML = "";
+        for (item of hw) {
+          const template = document.importNode(app.data.template, true);
+          const date = new Date(item.date);
+          const dateText = `${date.getDate()} ${
+            app.data.months[date.getMonth()]
+          } ${date.getFullYear()} года, ${app.data.weekdays[date.getDay()]}`;
+          template.querySelector(
+            ".title"
+          ).innerHTML = `${item.title} (${dateText})`;
+          template.querySelector(".content").innerHTML = item.content;
+          element.appendChild(template);
         }
       });
-    }
-  };
-})(window);
+      if (location.hash == group.page) {
+        app.routes[group.db]();
+      }
+    });
+  },
+  routes: {}
+};
 
-app.init();
+window.addEventListener("load", app.init);

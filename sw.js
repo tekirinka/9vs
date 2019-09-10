@@ -1,3 +1,5 @@
+let log = (color, bg, msg) =>
+  console.log("%c%s%s", `background:#${color};color:white;`, `${bg} `, msg);
 let version = "update";
 let cacheFirst = [
   "/",
@@ -12,8 +14,6 @@ let cacheFirst = [
 let staleWhileRevalidate = ["/app.css"];
 
 this.addEventListener("install", evt => {
-  self.skipWaiting();
-
   evt.waitUntil(
     caches.open(version).then(cache => {
       console.time("precaching");
@@ -28,11 +28,7 @@ this.addEventListener("activate", async evt => {
 
   for (key of keys) {
     if (key != version) {
-      console.log(
-        "activate",
-        "background:#209CEE;color:white;",
-        `delete ${key}`
-      );
+      log("209cee", "activate", `delete ${key}`);
       caches.delete(key);
     }
   }
@@ -50,18 +46,18 @@ this.addEventListener("fetch", async evt => {
   console.timeEnd("cache open");
 
   if (url.pathname in cacheFirst) {
-    console.log("cache first");
+    log("209cee", "fetch", "cache first");
     evt.respondWith(caches.match(req));
   } else if (url.pathname in staleWhileRevalidate) {
-    console.log("stale while revalidate");
+    log("209cee", "fetch", "stale while revalidate");
     evt.respondWith(caches.match(evt.request));
     try {
       let resp = await fetch(evt.request);
       cache.put(evt.request, resp);
-      console.log("cache update OK");
+      log("209cee", "fetch", "cache update OK");
     } catch {}
   } else {
-    console.log("network first");
+    log("209cee", "fetch", "network first");
     evt.respondWith(
       fetch(req)
         .then(resp => {

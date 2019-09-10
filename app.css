@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Neucha&display=swap);
 @import url(https://unpkg.com/picnic@6.5.0/picnic.min.css);
 @import url(https://unpkg.com/@fortawesome/fontawesome-free@5/css/all.min.css);
 @keyframes fadein {
@@ -38,13 +39,11 @@ html {
 
 body {
   font-size: 1rem;
+  font-family: "Neucha", sans-serif;
 }
 
 img {
   max-width: 100%;
-}
-
-.shed {
 }
 
 body > .spinner,
@@ -82,7 +81,7 @@ main > article {
 
 main > article:not(:target):not(#home),
 main > article:target ~ #home {
-  height: 0;
+  height: 1px;
   overflow: hidden;
   opacity: 0;
   animation: 1s fadeout;
@@ -95,4 +94,11 @@ main > article:target ~ #home {
 
 .pill {
   width: 100vw;
+}
+
+.today::before {
+  content: "Сегодня:";
+}
+.tomorrow::before {
+  content: "Завтра:";
 }
