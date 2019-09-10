@@ -4,6 +4,8 @@ if ("serviceWorker" in navigator) {
     for (let registration of registrations) {
       registration.unregister();
     }
-    location.reload();
+    if (registrations.length > 0) {
+      location.reload();
+    }
   });
 }
