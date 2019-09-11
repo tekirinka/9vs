@@ -101,3 +101,8 @@ main > article:target ~ #home {
 table {
   display: inline-block;
 }
+
+table td,
+table th {
+  border: 1px solid #ddd;
+}
