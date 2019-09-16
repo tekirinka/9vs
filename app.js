@@ -1,5 +1,6 @@
 app = {
   init: _ => {
+    setTimeout(_ => window.scrollTo(0, 0), 100);
     window.addEventListener("hashchange", app.hashchange);
     document
       .querySelectorAll("a")
