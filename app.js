@@ -90,11 +90,6 @@ app = {
   routes: {
     shedule() {
       const shedule = document.querySelector("#shedule-table");
-      const time = app.utils.timeFromTable(
-        document.querySelector("#timetable")
-      );
-      const h = new Date(Date.now()).getHours();
-      const m = new Date(Date.now()).getMinutes();
       const day = app.data.weekdays[new Date(Date.now()).getDay() - 1];
       const tds = shedule.querySelectorAll('td[rowspan="4"]').values();
       while (1) {
@@ -104,6 +99,12 @@ app = {
           dayItem.classList.add("current");
         }
       }
+      const time = app.utils.timeFromTable(
+        document.querySelector("#timetable")
+      );
+      const h = new Date(Date.now()).getHours();
+      const m = new Date(Date.now()).getMinutes();
+      const para = app.utils.getPara(h, m, time);
       const now = shedule
         .querySelectorAll(
           `td.para.${app.data.weekdaysEn[new Date(Date.now()).getDay() - 1]}`
@@ -112,14 +113,24 @@ app = {
       while (1) {
         const i = now.next().value;
         if (!i) break;
-        if (i.innerHTML == 2) {
+        if (i.innerHTML == para) {
           i.classList.add("current");
         }
       }
     }
   },
   utils: {
-    timeFromTable(table) {
+    // a = ['a','b','c'], b = ['1', '2', '3'] => [['a','1'],['b','2'],['c','3']]
+    merge: (a, b) => a.reduce((x, y, z) => [...x, [y, b[z]]]),
+    timeFromTable(tableText) {
+      let table;
+      if (typeof tableText.innerHTML != "undefined") {
+        table = tableText;
+      } else {
+        table = document.createElement("div");
+        table.innerHTML = tableText;
+        table = table.firstElementChild;
+      }
       let begins = [];
       let ends = [];
       table
@@ -128,8 +139,18 @@ app = {
       table
         .querySelectorAll("tr>td:nth-child(3)")
         .forEach(td => ends.push([td.innerHTML.split(":").map(parseInt)]));
-      return begins.reduce((obj, val, i) => ({ ...obj, [val]: ends[i] }));
-      // begins = ['a','b','c'], ends = ['1', '2', '3'] => {'a':'1','b':'2','c':'3'}
+      return app.utils.merge(begins, ends);
+    },
+    getPara(h, m, time) {
+      for (period of time) {
+        let a = period[0][0] * 60 + period[0][1];
+        let b = h * 60 + m;
+        let c = period[1][0] * 60 + period[1][1];
+        if (a >= b && b >= c) {
+          return time.indexOf([key, val]);
+        }
+      }
+      return -1;
     }
   }
 };
