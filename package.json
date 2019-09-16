@@ -3,6 +3,10 @@
     "prettier": "1.18.2",
     "prettier-plugin-toml": "^0.3.1"
   },
+  "dependencies": {
+    "@fontawesome/fontawesome-free": "latest",
+    "picnic": "latest"
+  },
   "name": "spa-pwa",
   "version": "1.0.0",
   "description": "SPA PWA",
