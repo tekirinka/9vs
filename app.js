@@ -1,5 +1,5 @@
 app = {
-  init: _ => {
+  init() {
     window.addEventListener("hashchange", app.hashchange);
     document
       .querySelectorAll("a")
@@ -15,7 +15,7 @@ app = {
     }
     app.fetch();
   },
-  hashchange: _ => {
+  hashchange() {
     let page = location.hash.substr(1);
     if (app.routes[page]) {
       app.routes[page]();
@@ -34,9 +34,12 @@ app = {
     ),
     weekdays: "понедельник,вторник,среда,четверг,пятница,суббота,воскресенье".split(
       ","
+    ),
+    weekdaysEn: "monday,tuesday,wensday,thursday,friday,saturday,sunday".split(
+      ","
     )
   },
-  fetch: _ => {
+  fetch() {
     app.data.groups.map(async group => {
       let { page, db } = group;
       new Promise((ok, err) => {
@@ -84,7 +87,51 @@ app = {
         .catch(console.err);
     });
   },
-  routes: {}
+  routes: {
+    shedule() {
+      const shedule = document.querySelector("#shedule-table");
+      const time = app.utils.timeFromTable(
+        document.querySelector("#timetable")
+      );
+      const h = new Date(Date.now()).getHours();
+      const m = new Date(Date.now()).getMinutes();
+      const day = app.data.weekdays[new Date(Date.now()).getDay() - 1];
+      const tds = shedule.querySelectorAll('td[rowspan="4"]').values();
+      while (1) {
+        const dayItem = tds.next().value;
+        if (!dayItem) break;
+        if (dayItem.innerHTML == day) {
+          dayItem.classList.add("current");
+        }
+      }
+      const now = shedule
+        .querySelectorAll(
+          `td.para.${app.data.weekdaysEn[new Date(Date.now()).getDay() - 1]}`
+        )
+        .values();
+      while (1) {
+        const i = now.next().value;
+        if (!i) break;
+        if (i.innerHTML == 2) {
+          i.classList.add("current");
+        }
+      }
+    }
+  },
+  utils: {
+    timeFromTable(table) {
+      let begins = [];
+      let ends = [];
+      table
+        .querySelectorAll("tr>td:nth-child(2)")
+        .forEach(td => begins.push([td.innerHTML.split(":").map(parseInt)]));
+      table
+        .querySelectorAll("tr>td:nth-child(3)")
+        .forEach(td => ends.push([td.innerHTML.split(":").map(parseInt)]));
+      return begins.reduce((obj, val, i) => ({ ...obj, [val]: ends[i] }));
+      // begins = ['a','b','c'], ends = ['1', '2', '3'] => {'a':'1','b':'2','c':'3'}
+    }
+  }
 };
 
 window.addEventListener("load", app.init);

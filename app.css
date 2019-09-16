@@ -112,3 +112,10 @@ table * {
   padding: 0 1em;
   margin: 0;
 }
+
+tr.current > td,
+td.current {
+  color: white;
+  background-color: #0074d9;
+  font-weight: bold;
+}
