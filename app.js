@@ -121,7 +121,7 @@ app = {
   },
   utils: {
     // a = ['a','b','c'], b = ['1', '2', '3'] => [['a','1'],['b','2'],['c','3']]
-    merge: (a, b) => a.reduce((x, y, z) => [...x, [y, b[z]]]),
+    merge: (a, b) => a.reduce((x, y, z) => [...x, [y, b[z]]], []),
     timeFromTable(tableText) {
       let table;
       if (typeof tableText.innerHTML != "undefined") {
@@ -135,19 +135,23 @@ app = {
       let ends = [];
       table
         .querySelectorAll("tr>td:nth-child(2)")
-        .forEach(td => begins.push([td.innerHTML.split(":").map(parseInt)]));
+        .forEach(td =>
+          begins.push([td.innerHTML.split(":").map(n => parseInt(n, 10))])
+        );
       table
         .querySelectorAll("tr>td:nth-child(3)")
-        .forEach(td => ends.push([td.innerHTML.split(":").map(parseInt)]));
+        .forEach(td =>
+          ends.push([td.innerHTML.split(":").map(n => parseInt(n, 10))])
+        );
       return app.utils.merge(begins, ends);
     },
     getPara(h, m, time) {
       for (period of time) {
-        let a = period[0][0] * 60 + period[0][1];
+        let a = period[0][0][0] * 60 + period[0][0][1];
         let b = h * 60 + m;
-        let c = period[1][0] * 60 + period[1][1];
-        if (a >= b && b >= c) {
-          return time.indexOf([key, val]);
+        let c = period[1][0][0] * 60 + period[1][0][1];
+        if (a <= b && b <= c) {
+          return time.indexOf(period);
         }
       }
       return -1;
