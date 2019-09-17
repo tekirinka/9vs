@@ -4,12 +4,12 @@
     "prettier-plugin-toml": "^0.3.1"
   },
   "dependencies": {
-    "@fontawesome/fontawesome-free": "latest",
-    "picnic": "latest"
+    "@fortawesome/fontawesome-free": "^5.10.2",
+    "picnic": "^6.5.1"
   },
   "name": "spa-pwa",
-  "version": "1.0.0",
-  "description": "SPA PWA",
+  "version": "0.0.0",
+  "description": "https://xn--80aakzil6e.tk",
   "main": "index.html",
   "repository": "https://github.com/tekirinka/9v",
   "author": "asd <asd@gmail.com>",
