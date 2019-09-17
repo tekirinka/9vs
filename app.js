@@ -26,8 +26,8 @@ app = {
     default: "#home",
     template: document.querySelector("template.hw").content,
     groups: [
-      { page: "#group2", db: "group2" },
-      { page: "#group1", db: "group1" }
+      { page: "#group2", db: "group2" }
+      //   { page: "#group1", db: "group1" }
     ],
     hw: [],
     months: "января,февраля,марта,апреля,мая,июня,июля,августа,сентября,октября,ноября,декабря".split(
