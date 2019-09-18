@@ -17,6 +17,7 @@ app = {
   },
   hashchange() {
     let page = location.hash.substr(1);
+    history.replaceState(null, "title", `/${page}`);
     if (app.routes[page]) {
       app.routes[page]();
     }
@@ -29,9 +30,6 @@ app = {
       //   { page: "#group1", db: "group1" }
     ],
     hw: [],
-    months: "января,февраля,марта,апреля,мая,июня,июля,августа,сентября,октября,ноября,декабря".split(
-      ","
-    ),
     weekdays: "понедельник,вторник,среда,четверг,пятница,суббота,воскресенье".split(
       ","
     ),
@@ -68,9 +66,7 @@ app = {
           for (item of hw) {
             const template = document.importNode(app.data.template, true);
             const date = new Date(item.date);
-            const dateText = `${date.getDate()} ${
-              app.data.months[date.getMonth()]
-            } ${date.getFullYear()} года, ${
+            const dateText = `${
               date.getDate() == dateNow.getDate()
                 ? "сегодня"
                 : date.getDate() == dateNow.getDate() + 1
