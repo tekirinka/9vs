@@ -1,11 +1,7 @@
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/sw.js");
-  // navigator.serviceWorker.getRegistrations().then(function(registrations) {
-  //   for (let registration of registrations) {
-  //     registration.unregister();
-  //   }
-  //   if (registrations.length > 0) {
-  //     location.reload();
-  //   }
-  // });
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js')
+        .then(() => navigator.serviceWorker.ready.then((worker) => {
+            worker.sync.register('syncdata');
+        }))
+        .catch(console.log);
 }

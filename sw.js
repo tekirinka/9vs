@@ -1,73 +1,46 @@
-// let log = (color, bg, msg) =>
-//   console.log("%c%s%s", `background:#${color};color:white;`, `${bg} `, msg);
-// let version = "delete";
-// let cacheFirst = [
-//   "/",
-//   "/sw-register.js",
-//   "/app.js",
-//   "/mf.json",
-//   ...["icon-192.png", "icon.png", "icon.svg", "loading.svg", "shed.png"].map(
-//     x => `/assets/${x}`
-//   ),
-//   "https://unpkg.com/picnic@6.5.0/picnic.min.css"
-// ];
-// let staleWhileRevalidate = ["/app.css"];
+const CACHE = 'cache';
 
-// this.addEventListener("install", evt => {
-//   evt.waitUntil(
-//     caches.open(version).then(cache => {
-//       console.time("precaching");
-//       cache.addAll([...cacheFirst, ...staleWhileRevalidate]);
-//       console.timeEnd("precaching");
-//     })
-//   );
-// });
 
-// this.addEventListener("activate", async evt => {
-//   let keys = await caches.keys();
+self.addEventListener('install', (event) => {
+    event.waitUntil(
+        caches
+            .open(CACHE)
+            .then((cache) => cache.addAll([
+                '/',
+                '/app.js',
+                '/app.css',
+                '/sw-register.js',
+                '/sw.js',
+                'fetch.js',
+                'mf.json']))
+            .then(() => self.skipWaiting())
+    );
+});
 
-//   for (key of keys) {
-//     if (key != version) {
-//       log("209cee", "activate", `delete ${key}`);
-//       caches.delete(key);
-//     }
-//   }
-// });
+self.addEventListener('activate', (event) => {
+    event.waitUntil(self.clients.claim());
+});
 
-// this.addEventListener("fetch", async evt => {
-//   console.group("fetch");
+self.addEventListener('fetch', function (event) {
+    if (event.request.url in ['/home', '/group1', '/group2', '/shedule'])
+        event.request.url = '/';
+    event.respondWith(networkOrCache(event.request)
+        .catch(() => useFallback()));
+});
 
-//   let url = new URL(evt.request.url);
-//   console.dir({ url });
-//   let req = evt.request;
+function networkOrCache(request) {
+    return fetch(request)
+        .then((response) => response.ok ? response : fromCache(request))
+        .catch(() => fromCache(request));
+}
 
-//   console.time("cache open");
-//   let cache = caches.open(version);
-//   console.timeEnd("cache open");
+function useFallback() {
+    return Promise.resolve(caches.open(CACHE).then(cache => cache.match(new Request('/'))));
+}
 
-//   if (url.pathname in cacheFirst) {
-//     log("209cee", "fetch", "cache first");
-//     evt.respondWith(caches.match(req));
-//   } else if (url.pathname in staleWhileRevalidate) {
-//     log("209cee", "fetch", "stale while revalidate");
-//     evt.respondWith(caches.match(evt.request));
-//     try {
-//       let resp = await fetch(evt.request);
-//       cache.put(evt.request, resp);
-//       log("209cee", "fetch", "cache update OK");
-//     } catch {}
-//   } else {
-//     log("209cee", "fetch", "network first");
-//     evt.respondWith(
-//       fetch(req)
-//         .then(resp => {
-//           cache.put(req, resp.clone());
-//           return resp;
-//         })
-//         .catch(_ => caches.match(req))
-//     );
-//   }
-//   console.groupEnd("fetch");
-// });
-
-self.addEventListener("fetch", _ => {});
+function fromCache(request) {
+    return caches.open(CACHE).then((cache) =>
+        cache.match(request).then((matching) =>
+            matching || Promise.reject('no-match')
+        ));
+}
