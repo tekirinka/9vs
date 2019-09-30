@@ -5,3 +5,9 @@ node_modules
 
 !/node_modules/picnic/picnic.min.css
 !/node_modules/@fortawesome/fontawesome-free/css/all.min.css
+
+# SPA
+/group1
+/group2
+/home
+/shedule

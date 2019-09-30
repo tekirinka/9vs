@@ -9,11 +9,9 @@ app = {
                     setTimeout(_ => window.scrollTo(0, 0), 100)
                 )
             );
-        if (location.hash) {
-            app.hashchange();
-        } else {
-            location.hash = app.data.default;
-        }
+
+        location.hash = location.hash || app.data.default;
+        app.hashchange();
         app.fetch();
     },
     hashchange() {
