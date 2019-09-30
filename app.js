@@ -150,6 +150,11 @@ app = {
                 }
             }
             return -1;
+        },
+        show() {
+            document.querySelectorAll('.hidden').forEach(i => i.classList.add('uncover'));
+        }, hide() {
+            document.querySelectorAll('.hidden').forEach(i => i.classList.remove('uncover'));
         }
     }
 };

@@ -119,3 +119,11 @@ td.current {
   background-color: #0074d9;
   font-weight: bold;
 }
+
+.hidden {
+  display: none;
+}
+
+.hidden.uncover {
+  display: unset;
+}
