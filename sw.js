@@ -11,8 +11,8 @@ self.addEventListener('install', (event) => {
                 '/app.css',
                 '/sw-register.js',
                 '/sw.js',
-                'fetch.js',
-                'mf.json']))
+                '/fetch.js',
+                '/mf.json']))
             .then(() => self.skipWaiting())
     );
 });
