@@ -8,6 +8,14 @@
     "@fortawesome/fontawesome-free": "^5.10.2",
     "picnic": "^6.5.1"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn prettier"
+    }
+  },
+  "scripts": {
+    "prettier": "prettier --write index.html app.js mf.json fetch.js app.css sw-register.js sw.js"
+  },
   "name": "spa-pwa",
   "version": "0.0.0",
   "description": "https://xn--80aakzil6e.tk",
@@ -15,10 +23,5 @@
   "repository": "https://github.com/tekirinka/9v",
   "author": "asd <asd@gmail.com>",
   "license": "GPL-3.0",
-  "private": true,
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn prettier"
-    }
-  }
+  "private": true
 }
