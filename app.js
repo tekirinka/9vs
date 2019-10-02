@@ -22,7 +22,7 @@ app = {
         }
     },
     data: {
-        default: "#home",
+        default: "#group2",
         template: document.querySelector("template.hw").content,
         groups: [
             { page: "#group2", db: "group2" },
