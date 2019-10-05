@@ -14,7 +14,7 @@
     }
   },
   "scripts": {
-    "prettier": "prettier --write index.html app.js mf.json fetch.js app.css sw-register.js sw.js"
+    "prettier": "prettier --write index.html app.js mf.json fetch.js app.css sw-register.js sw.js && git add ."
   },
   "name": "spa-pwa",
   "version": "0.0.0",
