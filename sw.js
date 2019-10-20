@@ -1,4 +1,4 @@
-const CACHE = "cache";
+const CACHE = "min";
 
 self.addEventListener("install", event => {
   event.waitUntil(
@@ -21,7 +21,8 @@ self.addEventListener("install", event => {
                 "/assets/icon-192.png",
                 "/assets/icon.png",
                 "/assets/icon.svg",
-                "/assets/loading.svg"
+                "/assets/loading.svg",
+                "/vendor/picnic.min.css"
               ])
               .then(self.skipWaiting)
           );

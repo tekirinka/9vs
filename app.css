@@ -1,6 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Neucha&display=swap);
-@import url(/node_modules/picnic/picnic.min.css);
-@import url(/node_modules/@fortawesome/fontawesome-free/css/all.min.css);
+@import url(/vendor/picnic.min.css);
 @keyframes fadein {
   0% {
     opacity: 0;
