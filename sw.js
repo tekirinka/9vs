@@ -34,7 +34,7 @@ function networkOrCache(req) {
     return fetch(req);
   } else {
     return fetch(req)
-      .then(res => (res.ok ? cacheAndReturn(req, res) : fromCache(req)))
+      .then(res => (res.ok ? cacheAndReturn(req, res.clone()) : fromCache(req)))
       .catch(() => fromCache(req));
   }
 }
