@@ -19,21 +19,24 @@ self.addEventListener("install", event => {
   );
 });
 
-self.addEventListener("activate", event => {
-  event.waitUntil(self.clients.claim());
+self.addEventListener("activate", evt => {
+  evt.waitUntil(self.clients.claim());
 });
 
-self.addEventListener("fetch", function(event) {
-  if (event.request.url in ["/home", "/group1", "/group2", "/shedule"])
-    event.request.url = "/";
-  // event.request.url = `/#${event.request.url.substr(0, 1)}`;
-  event.respondWith(networkOrCache(event.request).catch(() => useFallback()));
+self.addEventListener("fetch", function(evt) {
+  if (evt.request.url in ["/home", "/group2", "/shedule"])
+    evt.request.url = "/";
+  evt.respondWith(networkOrCache(evt.request).catch(() => useFallback()));
 });
 
-function networkOrCache(request) {
-  return fetch(request)
-    .then(response => (response.ok ? response : fromCache(request)))
-    .catch(() => fromCache(request));
+function networkOrCache(req) {
+  if (new URL(req.url).origin != location.origin) {
+    return fetch(req);
+  } else {
+    return fetch(req)
+      .then(res => (res.ok ? cacheAndReturn(req, res) : fromCache(req)))
+      .catch(() => fromCache(req));
+  }
 }
 
 function useFallback() {
@@ -42,12 +45,15 @@ function useFallback() {
   );
 }
 
-function fromCache(request) {
+function fromCache(req) {
   return caches
     .open(CACHE)
     .then(cache =>
-      cache
-        .match(request)
-        .then(matching => matching || Promise.reject("no-match"))
+      cache.match(req).then(res => res || Promise.reject("no-match"))
     );
+}
+
+function cacheAndReturn(req, res) {
+  caches.open(CACHE).then(cache => cache.put(req, res.clone()));
+  return res;
 }
