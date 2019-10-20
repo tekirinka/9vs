@@ -53,7 +53,8 @@ function fromCache(req) {
     );
 }
 
-function cacheAndReturn(req, res) {
-  caches.open(CACHE).then(cache => cache.put(req, res.clone()));
+async function cacheAndReturn(req, res) {
+  let cache = await caches.open(CACHE);
+  await cache.put(req, res.clone());
   return res;
 }
