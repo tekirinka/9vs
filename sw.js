@@ -3,24 +3,41 @@ const CACHE = "cache";
 self.addEventListener("install", event => {
   event.waitUntil(
     caches
-      .open(CACHE)
-      .then(cache =>
-        cache.addAll([
-          "/",
-          "/app.js",
-          "/app.css",
-          "/sw-register.js",
-          "/sw.js",
-          "/fetch.js",
-          "/mf.json"
-        ])
-      )
-      .then(() => self.skipWaiting())
+      .keys()
+      .then(x => x.map(key => key != CACHE && caches.delete(key)))
+      .then(_ => {
+        caches
+          .open(CACHE)
+          .then(cache =>
+            cache
+              .addAll([
+                "/",
+                "/app.js",
+                "/app.css",
+                "/sw-register.js",
+                "/sw.js",
+                "/fetch.js",
+                "/mf.json",
+                "/assets/icon-192.png",
+                "/assets/icon.png",
+                "/assets/icon.svg",
+                "/assets/loading.svg"
+              ])
+              .then(self.skipWaiting)
+          );
+      })
   );
 });
 
-self.addEventListener("activate", evt => {
-  evt.waitUntil(self.clients.claim());
+self.addEventListener("activate", async evt => {
+  evt.waitUntil(
+    caches
+      .keys()
+      .then(x => x.map(key => key != CACHE && caches.delete(key)))
+      .then(_ => {
+        self.clients.claim();
+      })
+  );
 });
 
 self.addEventListener("fetch", function(evt) {
@@ -29,20 +46,22 @@ self.addEventListener("fetch", function(evt) {
   evt.respondWith(networkOrCache(evt.request).catch(() => useFallback()));
 });
 
-function networkOrCache(req) {
+async function networkOrCache(req) {
   if (new URL(req.url).origin != location.origin) {
     return fetch(req);
   } else {
-    return fetch(req)
-      .then(res => (res.ok ? cacheAndReturn(req, res.clone()) : fromCache(req)))
-      .catch(() => fromCache(req));
+    let res = await fetch(req);
+    if (res.ok) {
+      cacheRes(req, res.clone());
+      return res;
+    } else {
+      fromCache(req);
+    }
   }
 }
 
 function useFallback() {
-  return Promise.resolve(
-    caches.open(CACHE).then(cache => cache.match(new Request("/")))
-  );
+  return caches.open(CACHE).then(cache => cache.match(new Request("/")));
 }
 
 function fromCache(req) {
@@ -53,8 +72,7 @@ function fromCache(req) {
     );
 }
 
-async function cacheAndReturn(req, res) {
-  let cache = await caches.open(CACHE);
-  await cache.put(req, res.clone());
+async function cacheRes(req, res) {
+  await caches.open(CACHE).then(cache => cache.put(req, res.clone()));
   return res;
 }
