@@ -1,4 +1,4 @@
-const CACHE = "min";
+const CACHE = "picnic";
 
 self.addEventListener("install", event => {
   event.waitUntil(
