@@ -127,3 +127,7 @@ td.current {
 .hidden.uncover {
   display: unset;
 }
+
+pre {
+	margin-top: 0;
+}
