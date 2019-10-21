@@ -10,11 +10,11 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn prettier"
+      "pre-commit": "npm run prettier"
     }
   },
   "scripts": {
-    "prettier": "prettier --write index.html app.js mf.json fetch.js app.css sw-register.js sw.js && git add ."
+    "prettier": "prettier --write index.html app.js mf.json fetch.js app.css sw-register.js sw.js"
   },
   "name": "spa-pwa",
   "version": "0.0.0",

@@ -1,7 +1,8 @@
 app = {
   init() {
+    app.data.worker = new Worker("fetch.js");
     setTimeout(_ => scrollTo(0, 0), 100);
-    window.addEventListener("hashchange", app.hashchange);
+    // window.addEventListener("hashchange", app.hashchange);
     document
       .querySelectorAll("a")
       .forEach(item =>
@@ -22,9 +23,9 @@ app = {
     }
   },
   data: {
-    default: "#group2",
+    default: "#home",
     template: document.querySelector("template.hw").content,
-    groups: [{ page: "#group2", db: "group2" }],
+    groups: [{ page: "#home", db: "group2" }],
     hw: [],
     weekdays: "понедельник,вторник,среда,четверг,пятница,суббота,воскресенье".split(
       ","
@@ -34,22 +35,22 @@ app = {
     ),
     monthdays: "января,февраля,марта,апреля,мая,июня,июля,августа,сентября,октября,ноября,декабря".split(
       ","
-    )
+    ),
+    worker: null
   },
   fetch() {
     app.data.groups.map(async group => {
       let { page, db } = group;
       new Promise((ok, err) => {
         if (!app.data.hw[db]) {
-          let worker = new Worker("fetch.js");
-          worker.onmessage = evt => {
+          app.data.worker.onmessage = evt => {
             if (evt.data.type == "err") {
               err(evt.data.err);
             }
             app.data.hw[db] = evt.data.json;
             ok(app.data.hw[db]);
           };
-          worker.postMessage(db);
+          app.data.worker.postMessage(db);
         } else {
           ok(app.data.hw[db]);
         }
