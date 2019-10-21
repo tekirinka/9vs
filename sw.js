@@ -1,4 +1,4 @@
-const CACHE = "min";
+const CACHE = "path";
 
 self.addEventListener("install", event => {
   event.waitUntil(

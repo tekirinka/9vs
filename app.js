@@ -12,7 +12,7 @@ app = {
       );
 
     location.hash = location.hash || app.data.default;
-    app.hashchange();
+    // app.hashchange();
     app.fetch();
   },
   hashchange() {
