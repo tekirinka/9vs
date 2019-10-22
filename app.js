@@ -152,14 +152,14 @@ app = {
       }
       return -1;
     },
-    show() {
+    show(selector = ".hidden") {
       document
-        .querySelectorAll(".hidden")
+        .querySelectorAll(selector)
         .forEach(i => i.classList.add("uncover"));
     },
-    hide() {
+    hide(selector = ".hidden") {
       document
-        .querySelectorAll(".hidden")
+        .querySelectorAll(selector)
         .forEach(i => i.classList.remove("uncover"));
     }
   }
