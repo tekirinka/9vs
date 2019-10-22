@@ -15,7 +15,7 @@
     }
   },
   "scripts": {
-    "prettier": "prettier --write index.html app.js mf.json fetch.js app.css sw-register.js sw.js",
+    "prettier": "prettier --write src/**/*.{html,css,js} !**/*.min.*",
     "build": "cp src public"
   },
   "name": "spa-pwa",
