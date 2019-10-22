@@ -1,0 +1,132 @@
+@import url(https://fonts.googleapis.com/css?family=Neucha&display=swap);
+@import url(/vendor/picnic.min.css);
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+
+  75% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+html {
+  font-size: calc(1em + 1vw);
+}
+
+body {
+  font-size: 1rem;
+  font-family: "Neucha", sans-serif;
+}
+
+img {
+  max-width: 100%;
+}
+
+body > .spinner {
+  opacity: 0;
+  animation: 1s fadeout;
+}
+
+body > .spinner {
+  z-index: 1000;
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 50%;
+  transition: opacity 1s;
+  pointer-events: none;
+}
+
+body > :not(.spinner) {
+  opacity: 1;
+  animation: 1s fadein;
+}
+
+main > article {
+  opacity: 1;
+  transition: none;
+  position: absolute;
+  animation: 1s fadein;
+  width: 92%;
+  margin: auto 2%;
+}
+
+main > article:not(:target):not(#home),
+main > article:target ~ #home {
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  animation: 1s fadeout;
+  transition: height 1s;
+}
+
+.navfix {
+  height: 4em;
+}
+
+.pill {
+  max-height: 80vh;
+}
+
+[colspan] {
+  text-align: center;
+}
+
+table {
+  display: inline-block;
+}
+
+table td,
+table th {
+  border: 1px solid #ddd;
+}
+
+table,
+table * {
+  padding: 0 1em;
+  margin: 0;
+}
+
+tr.current > td,
+td.current {
+  color: white;
+  background-color: #0074d9;
+  font-weight: bold;
+}
+
+.hidden {
+  display: none;
+}
+
+.hidden.uncover {
+  display: unset;
+}
+
+pre {
+  margin-top: 0;
+}

@@ -1,0 +1,20 @@
+{
+  "short_name": "9-B",
+  "name": "9-B",
+  "start_url": "/",
+  "background_color": "white",
+  "display": "standalone",
+  "theme_color": "white",
+  "icons": [
+    {
+      "src": "/assets/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/assets/icon.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}

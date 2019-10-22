@@ -16,7 +16,7 @@
   },
   "scripts": {
     "prettier": "prettier --write src/**/*.{html,css,js,json} !**/*.min.*",
-    "build": "cp src public"
+    "build": "rm -rf public && cp -r src public"
   },
   "name": "spa-pwa",
   "version": "0.0.0",
