@@ -30,11 +30,9 @@ self.addEventListener("activate", async evt => {
   evt.waitUntil(self.clients.claim());
 });
 
-self.addEventListener("fetch", evt => {
-  if (evt.request.url in ["/home", "/group2", "/shedule"])
-    evt.request.url = "/";
-  evt.respondWith(networkOrCache(evt.request).catch(() => useFallback()));
-});
+self.addEventListener("fetch", evt =>
+  evt.respondWith(networkOrCache(evt.request).catch(useFallback))
+);
 
 async function networkOrCache(req) {
   if (new URL(req.url).origin != location.origin) {
